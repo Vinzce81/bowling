@@ -29,51 +29,48 @@ public class Counter
     public List<ScoredFrame> scoreFrames()
     {
         int score = 0;
+        for(int i = frames.size() - 1; i >= 0 ; i--)
+        {
+            int localScore = computeScoreReverse(frames.get(i), i);
+            frames.get(i).setScore(localScore);
+        }
         for(int i = 0; i < frames.size(); i++)
         {
-            int localScore = computeScore(frames.get(i), i);
-            frames.get(i).setScore(localScore);
+            int localScore = frames.get(i).getScore();
             score += localScore;
             frames.get(i).setTotalScore(score);
         }
         return frames;
     }
 
-    private int computeScore(ScoredFrame frame, int startIndex)
+    private int computeScoreReverse(ScoredFrame frame, int index)
     {
         if(frame.isStrike())
         {
-            if(startIndex + 1 < frames.size())
+            if(frame.getIndex() == 10)
             {
-                int addedScore = computeScore(frames.get(startIndex + 1), startIndex + 1);
-                if(addedScore > 20)
+                int score = 10;
+                if (frame.getThrow3() != null)
                 {
-                    return 30;
+                    score += frame.getThrow3() + frame.getThrow2();
+                } else if (frame.getThrow2() != null)
+                {
+                    score += frame.getThrow2();
                 }
-                return 10 + addedScore;
+                return score;
             }
-            else
+            int addedScore = computeScoreReverse(frames.get(index + 1), index + 1);
+            if(addedScore > 20)
             {
-                int addedScore = 0;
-                if(frames.size() == 10)
-                {
-                    if(frame.getThrow3() != null)
-                    {
-                        addedScore += frame.getThrow3();
-                    }
-                    if(frame.getThrow2() != null)
-                    {
-                        addedScore += frame.getThrow2();
-                    }
-                }
-                return 10 + addedScore;
+                addedScore = 20;
             }
+            return 10 + addedScore;
         }
         else if(frame.isSpare())
         {
-            if(startIndex + 1 < frames.size())
+            if(index + 1 < frames.size())
             {
-                return 10 + frames.get(startIndex + 1).getThrow1();
+                return 10 + frames.get(index + 1).getThrow1();
             }
             else
             {

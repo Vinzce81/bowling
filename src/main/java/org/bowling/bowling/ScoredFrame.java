@@ -14,6 +14,7 @@ public class ScoredFrame extends Frame
     private int totalScore;
     private boolean strike;
     private boolean spare;
+
     public int getIndex()
     {
         return index;
