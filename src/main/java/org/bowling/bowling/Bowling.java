@@ -9,11 +9,9 @@ public class Bowling {
         try
         {
             List<Frame> frames = ParametersParser.parseParams(args);
-            //System.out.println(frames);
             Counter counter = new Counter(frames);
             List<ScoredFrame> scoredFrames = counter.scoreFrames();
-            Score score = new Score(scoredFrames);
-            System.out.println(Formatter.formatScore(score));
+            System.out.println(Formatter.formatScoredFrames(scoredFrames));
         }
         catch(IllegalArgumentException e)
         {

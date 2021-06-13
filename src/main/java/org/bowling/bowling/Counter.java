@@ -59,10 +59,14 @@ public class Counter
                 }
                 return score;
             }
-            int addedScore = computeScoreReverse(frames.get(index + 1), index + 1);
-            if(addedScore > 20)
+            int addedScore = 0;
+            if(index + 1 < frames.size())
             {
-                addedScore = 20;
+                addedScore = computeScoreReverse(frames.get(index + 1), index + 1);
+                if(addedScore > 20)
+                {
+                    addedScore = 20;
+                }
             }
             return 10 + addedScore;
         }

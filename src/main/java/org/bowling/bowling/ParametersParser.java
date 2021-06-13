@@ -33,6 +33,10 @@ public class ParametersParser
                     int pins3 = parsePin(args[i]);
                     frame.setThrow3(pins3);
                     //no more throws
+                    if(i + 1 < args.length)
+                    {
+                        throw new IllegalArgumentException("Exceeded number of throws");
+                    }
                     break;
                 }
                 int pins = parsePin(args[i]);

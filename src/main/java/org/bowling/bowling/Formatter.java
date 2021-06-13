@@ -1,5 +1,7 @@
 package org.bowling.bowling;
 
+import java.util.List;
+
 public class Formatter
 {
     public static String formatScoredFrame(ScoredFrame frame, boolean unfinished)
@@ -64,16 +66,16 @@ public class Formatter
         return ret;
     }
 
-    public static String formatScore(Score score)
+    public static String formatScoredFrames(List<ScoredFrame> scoreFrames)
     {
         String ret = "";
-        for(int i = 0; i < score.getFrames().size(); i++)
+        for(int i = 0; i < scoreFrames.size(); i++)
         {
-            ScoredFrame frame = score.getFrames().get(i);
-            ret += formatScoredFrame(frame, i == score.getFrames().size() - 1) + "\n";
+            ScoredFrame frame = scoreFrames.get(i);
+            ret += formatScoredFrame(frame, i == scoreFrames.size() - 1) + "\n";
         }
         ret += "---------\n";
-        ret += score.getFrames().get(score.getFrames().size() - 1).getTotalScore();
+        ret += scoreFrames.get(scoreFrames.size() - 1).getTotalScore();
         return ret;
     }
 }
